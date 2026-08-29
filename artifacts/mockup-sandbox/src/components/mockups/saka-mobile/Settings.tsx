@@ -1,0 +1,20 @@
+import { Bell, ChevronRight, Crown, Database, Fingerprint, HelpCircle, LockKeyhole, LogOut, Moon, Radio, ShieldCheck, SlidersHorizontal, Sparkles, UserRound } from "lucide-react";
+import { ChevronRow, GlassCard, SakaShell, TopBar } from "./_shared/SakaShared";
+import "./_group.css";
+import { useState } from "react";
+
+const settingGroups = [
+  { title: "PERSONAL", rows: [{ icon: UserRound, title: "Personal information", detail: "Aarav Sharma" }, { icon: Fingerprint, title: "Birth information", detail: "28 Apr 1996 · 6:20 AM" }, { icon: Database, title: "Data & privacy", detail: "Private by default" }] },
+  { title: "HOW SAKA SHOWS UP", rows: [{ icon: Bell, title: "Notifications", detail: "Daily at 8:00 AM" }, { icon: Radio, title: "Reminders", detail: "2 active" }, { icon: SlidersHorizontal, title: "Voice & language", detail: "English" }, { icon: Moon, title: "Appearance", detail: "System" }] },
+];
+export function Settings() {
+  const [quiet, setQuiet] = useState(true);
+  const [saved, setSaved] = useState(false);
+  return <SakaShell active="you"><TopBar title="Settings" back /><GlassCard><div className="saka-row"><div style={{ display: "flex", alignItems: "center", gap: 11 }}><span style={{ display: "grid", placeItems: "center", width: 37, height: 37, borderRadius: 12, color: "var(--saka-gold)", background: "rgba(215,169,101,.15)" }}><Crown size={18} /></span><div><h2 style={{ margin: 0, fontSize: 14, fontWeight: 600 }}>Saka Premium</h2><span className="saka-caption">Renews on 29 Sep 2025</span></div></div><ChevronRight size={15} color="var(--saka-gold)" /></div><button className="saka-button" style={{ width: "100%", marginTop: 15 }} onClick={() => setSaved(!saved)}>{saved ? "Plan details saved" : "Manage membership"}</button></GlassCard>
+    {settingGroups.map(group => <div className="saka-section" key={group.title}><p className="saka-eyebrow" style={{ marginBottom: 8 }}>{group.title}</p><GlassCard pad={false}><div style={{ padding: "3px 16px" }}>{group.rows.map(row => { const Icon = row.icon; return <ChevronRow key={row.title} icon={<Icon size={14} />} title={row.title} detail={row.detail} onClick={() => window.alert(`${row.title} is ready to configure.`)} /> })}</div></GlassCard></div>)}
+    <div className="saka-section"><p className="saka-eyebrow" style={{ marginBottom: 8 }}>PRIVACY & SUPPORT</p><GlassCard pad={false}><div style={{ padding: "3px 16px" }}><ChevronRow icon={<ShieldCheck size={14} />} title="About Saka" detail="Version 1.4.2" onClick={() => window.alert("Saka — quiet intelligence for everyday life.")} /><ChevronRow icon={<HelpCircle size={14} />} title="Help centre" detail="Answers, whenever you need them" onClick={() => window.alert("Help centre opened.")} /></div></GlassCard></div>
+    <div className="saka-card saka-card-pad saka-section" style={{ background: "rgba(124,78,159,.1)" }}><div className="saka-row"><div><p className="saka-eyebrow" style={{ marginBottom: 5 }}>A QUIETER MODE</p><h3 style={{ margin: 0, fontSize: 14, fontWeight: 500 }}>Keep Saka close, not loud</h3></div><button aria-label="Toggle quiet mode" className={`saka-toggle ${quiet ? "on" : ""}`} onClick={() => setQuiet(!quiet)} /></div><p className="saka-caption" style={{ margin: "9px 0 0" }}>{quiet ? "Only meaningful signals will reach you." : "All signals are available in your feed."}</p></div>
+    <button className="saka-button ghost" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 7, width: "100%", marginTop: 24, color: "#cf9aa5" }} onClick={() => window.alert("You have been signed out of this preview.")}><LogOut size={14} />Log out</button><div style={{ display: "flex", justifyContent: "center", gap: 7, marginTop: 19, color: "var(--saka-dim)" }}><LockKeyhole size={12} /><span className="saka-caption">Private by design</span><Sparkles size={12} color="var(--saka-gold)" /></div>
+  </SakaShell>;
+}
+export default Settings;
